@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>struts1</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>action</servlet-name>
+  	<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+  	<init-param>
+  		<param-name>config</param-name>
+  		<param-value>
+  			<!-- 모든 프로젝트에 공통으로 들어가는 환경설정 -->
+  			/WEB-INF/struts-config.xml,
+  			<!-- 개개인별 프로젝트에 들어가는 환경설정 -->
+  			/WEB-INF/struts-config_temp.xml,  
+  			/WEB-INF/struts-config_board.xml,  
+  			/WEB-INF/struts-config_boardTest.xml,  
+  			/WEB-INF/struts-config_fileTest.xml,  
+  			<!-- test.xml 추가 -->	
+  			/WEB-INF/struts-config_test.xml  		
+  		</param-value>
+  	</init-param>
+  	<!-- startup할때 얘를 두번째로 찾아라 -->
+  	<!-- 첫번째는 annotation -->
+  	<load-on-startup>2</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>action</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- DBCP(Database Connection Pool) -->
+  <resource-ref>
+  	<description>Oracle DataSource</description>
+  	<res-ref-name>jdbc/myOracle</res-ref-name>
+  	<res-type>javax.sql.DataSource</res-type>
+  	<res-auth>Container</res-auth>
+  </resource-ref>
+  
+  <!-- servlet CharsetEncodingFilter -->
+  <filter>
+  	<filter-name>CharsetEncodingFilter</filter-name>
+  	<filter-class>com.util.filter.CharsetEncodingFilter</filter-class>
+  		<init-param>
+  			<param-name>charset</param-name>
+  			<param-value>UTF-8</param-value>
+  		</init-param>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>CharsetEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  
+  
+</web-app>
